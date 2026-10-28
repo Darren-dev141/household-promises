@@ -12,7 +12,7 @@ and the code disagree, the code wins and this document is the bug (the
 ## 1. What "portable" means
 
 The Household Constitution today runs as one MCP server in front of one
-simulated Alexa+ host. The Portable Constitution is the same constitution
+simulated assistant host. The Portable Constitution is the same constitution
 as a **platform-independent artifact**: a versioned bundle that any host
 platform can carry without its meaning changing.
 

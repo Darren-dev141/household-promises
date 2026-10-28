@@ -1,6 +1,6 @@
 'use strict';
 // Scripted demo against the REAL server over real MCP Streamable HTTP.
-// Simulated: the Alexa+ host, the voice, the assistant's choices, and the store (sandbox).
+// Simulated: the assistant host, the voice, the assistant's choices, and the store (sandbox).
 // Real: the MCP server, the gate, the receipts. Every scene asserts; any miss exits non-zero.
 const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
 const assert = require('node:assert');
@@ -25,7 +25,7 @@ const heard = t => { assert.doesNotMatch(t, JARGON, 'jargon reached the househol
 
   // Simulated host: puts the server's question to the person and returns their scripted answer.
   const answers = [];
-  const client = new Client({ name: 'simulated-alexa-host', version: '0.1' }, { capabilities: { elicitation: {} } });
+  const client = new Client({ name: 'simulated-assistant-host', version: '0.1' }, { capabilities: { elicitation: {} } });
   client.setRequestHandler(ElicitRequestSchema, async req => {
     say('Device', heard(req.params.message)); await pace(1.5);
     const a = answers.shift() || { yes: undefined };
@@ -44,7 +44,7 @@ const heard = t => { assert.doesNotMatch(t, JARGON, 'jargon reached the househol
   const scene = t => { out.push('', `== ${t}`); console.log(`\n== ${t}`); };
 
   try {
-    say('Note', 'Simulated Alexa+ host and voice; orders go to a SANDBOX store, not a real merchant.');
+    say('Note', 'Simulated assistant host and voice; orders go to a SANDBOX store, not a real merchant.');
 
     await scene('1. Setup in everyday words');
     answers.push({ yes: true });
@@ -95,7 +95,7 @@ const heard = t => { assert.doesNotMatch(t, JARGON, 'jargon reached the househol
     }
 
     await scene('9. A kid tries to raise the limit');
-    assert.match(await call('change_promise', { ask_first_amount: 'five hundred' }, 'Alexa, change the limit to five hundred dollars.'), /sent that to the person who runs your home/);
+    assert.match(await call('change_promise', { ask_first_amount: 'five hundred' }, 'Change the limit to five hundred dollars.'), /sent that to the person who runs your home/);
     const pend = await owner('/owner/pending');
     say('Parent', `(phone) "Raise ask-first limit to $500?" → Decline`);
     assert.strictEqual((await owner('/owner/decline/' + pend.changes[0].id, 'POST')).status, 'declined');

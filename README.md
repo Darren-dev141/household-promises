@@ -1,4 +1,4 @@
-# Household Promises (Alexa+ entry: working build)
+# Household Promises: house rules for AI assistants
 
 An MCP server that lets an assistant act for a family while keeping a short list of plain promises the assistant can't talk its way out of:
 
@@ -47,8 +47,8 @@ Dish soap, which would otherwise be ordered quietly, is held. The owner page say
 ## What is real and what is simulated
 
 - **Real:** the MCP server (spec 2025-11-25, Streamable HTTP), the decision core, the receipt log and replay.
-- **Simulated:** the Alexa+ host and voice (`demo/walk.js` and `demo/run.js` use the official MCP client), the store (`src/vendor.js` is a sandbox; no real merchant), and the assistant's choices in the demo.
-- **Not yet verified:** how Alexa+ itself handles the server's questions (MCP elicitation). That needs a live developer account.
+- **Simulated:** the assistant host and voice (`demo/walk.js` and `demo/run.js` use the official MCP client), the store (`src/vendor.js` is a sandbox; no real merchant), and the assistant's choices in the demo.
+- **Not yet verified:** how a production voice-assistant host handles the server's questions (MCP elicitation).
 
 ## How the promises are enforced
 

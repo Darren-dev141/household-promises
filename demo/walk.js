@@ -1,6 +1,6 @@
 'use strict';
 // Drives a server that is already running (`OWNER_KEY=... npm start`).
-// Simulated: the Alexa+ host and the voice. Real: the MCP server, the checks, the receipts.
+// Simulated: the assistant host and the voice. Real: the MCP server, the checks, the receipts.
 //   node demo/walk.js promise|hold|allergen|zone|check
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
 const { StreamableHTTPClientTransport } = require('@modelcontextprotocol/sdk/client/streamableHttp.js');
@@ -9,7 +9,7 @@ const { ElicitRequestSchema } = require('@modelcontextprotocol/sdk/types.js');
 const STEPS = ['promise', 'hold', 'allergen', 'zone', 'check'];
 
 async function session(base, log) {
-  const client = new Client({ name: 'simulated-alexa-host', version: '0.1' }, { capabilities: { elicitation: {} } });
+  const client = new Client({ name: 'simulated-assistant-host', version: '0.1' }, { capabilities: { elicitation: {} } });
   client.setRequestHandler(ElicitRequestSchema, async req => {
     log('Device', req.params.message);
     log('Household', 'Yes.');

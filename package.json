@@ -1,5 +1,5 @@
 {
-  "name": "alexa-constitution",
+  "name": "household-promises",
   "version": "1.0.0",
   "description": "Self-hosted MCP server that keeps a household's promises the assistant cannot talk its way out of.",
   "main": "src/server.js",

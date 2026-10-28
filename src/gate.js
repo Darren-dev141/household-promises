@@ -102,7 +102,7 @@ class Gate {
     return { status: 'off', say: 'Guest Mode is off. Only people who live here can use me now.' };
   }
 
-  // Agent proposes. Returns what Alexa should do next. With { actor: 'guest' }
+  // Agent proposes. Returns what the assistant should do next. With { actor: 'guest' }
   // the proposal is a guest's: default-deny at this gate, never by prompt.
   propose(proposal, { actor } = {}) {
     const t0 = process.hrtime.bigint();

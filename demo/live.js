@@ -1,7 +1,7 @@
 'use strict';
 // Live mode for recording: the real server on this machine, fresh data, and a host that
 // CANNOT ask the person, so setup and the big order wait on the parent's phone page (/owner),
-// decided by hand in a real browser. Simulated: the Alexa+ host, the voice, the store.
+// decided by hand in a real browser. Simulated: the assistant host, the voice, the store.
 //   node demo/live.js            (optional: PORT=3000 DEMO_PACE_MS=1500 OWNER_KEY=...)
 const fs = require('node:fs'), os = require('node:os'), path = require('node:path'), crypto = require('node:crypto');
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
@@ -16,7 +16,7 @@ async function runLive({ port = 0, ownerKey, paceMs = 0, waitForOwner, log = con
   const srv = await new Promise(r => { const s = app.listen(port, '127.0.0.1', () => r(s)); });
   const base = `http://127.0.0.1:${srv.address().port}`;
   const say = async (who, t) => { log(`${who.padEnd(10)} ${t}`); if (paceMs) await sleep(paceMs); };
-  const client = new Client({ name: 'simulated-alexa-host', version: '0.1' }); // no elicitation: cannot ask the person
+  const client = new Client({ name: 'simulated-assistant-host', version: '0.1' }); // no elicitation: cannot ask the person
   await client.connect(new StreamableHTTPClientTransport(new URL(base + '/mcp')));
   const call = async (name, args, line) => {
     if (line) await say('Household', line);
@@ -33,7 +33,7 @@ async function runLive({ port = 0, ownerKey, paceMs = 0, waitForOwner, log = con
   };
   const result = { base, home };
   try {
-    await say('Note', 'Simulated Alexa+ host and voice. Sandbox store, not a real merchant. Real server, real checks, real receipts.');
+    await say('Note', 'Simulated assistant host and voice. Sandbox store, not a real merchant. Real server, real checks, real receipts.');
     await call('finish_setup', { home_type: 'family', ask_first_amount: 'seventy five dollars', allergies: 'peanuts' },
       "We're a family. Ask before anything over seventy-five dollars. No peanuts, ever.");
     await decided(() => !home.pendingSetup, 'home setup');
